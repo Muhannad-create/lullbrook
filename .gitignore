@@ -1,0 +1,19 @@
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+
+# Logs & temp
+*.log
+*.tmp
+tmp/
+
+# Future tooling (just in case)
+node_modules/
+dist/
+.cache/

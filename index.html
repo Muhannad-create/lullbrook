@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lullbrook — ambient sound library</title>
+  <meta name="description" content="A quiet library of ambient sounds. Layer rain, fire, wind and more into your own mix for sleep or focus.">
+  <meta name="theme-color" content="#1d1719">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>Lullbrook</h1>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+      <p class="tagline">a quiet library of sounds</p>
+
+      <nav class="cats" id="cats" aria-label="Sound categories"></nav>
+
+      <footer class="sidenote">
+        Layer as many sounds as you like.<br>
+        Space plays &amp; pauses.<br>
+        <a href="https://github.com/remvze/moodist" rel="noopener">Sounds via Moodist (MIT)</a>
+      </footer>
+    </aside>
+
+    <main class="main">
+      <div class="main-head">
+        <h2 id="catTitle">All Sounds</h2>
+        <p>tap a card to add it to your mix</p>
+      </div>
+      <section class="grid" id="grid" aria-label="Sounds"></section>
+    </main>
+  </div>
+
+  <div class="dock" role="region" aria-label="Playback controls">
+    <button class="dock-play" id="playBtn" aria-label="Play"></button>
+
+    <div class="dock-viz">
+      <canvas id="viz" aria-hidden="true"></canvas>
+      <span class="np-label" id="npLabel">Quiet — tap a sound to begin</span>
+    </div>
+
+    <div class="dock-vol" title="Master volume">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.2 9.6c1.4-.2 2.7-.3 3.9-.3L12.6 5c.3 4.7.3 9.4 0 14l-4.5-4.3c-1.2 0-2.5-.1-3.9-.3-.3-1.6-.3-3.2 0-4.8Z"/><path d="M15.6 9.2c1.4 1.9 1.4 3.7 0 5.6" opacity=".7"/></svg>
+      <input type="range" id="masterVol" min="0" max="1" step="0.01" value="0.8" aria-label="Master volume">
+    </div>
+
+    <button class="dock-btn" id="timerBtn" data-popover="timerPop" aria-expanded="false" aria-haspopup="true">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.2c4.2 0 7.4 3.2 7.4 7.4 0 4.3-3.2 7.6-7.4 7.6s-7.4-3.3-7.4-7.6c0-4.2 3.2-7.4 7.4-7.4Z"/><path d="M12 8.6v4.2l2.6 1.6M9.8 2.6h4.4"/></svg>
+      <span class="btn-text">Timer</span>
+      <span class="timer-label" id="timerLabel"></span>
+    </button>
+
+    <button class="dock-btn" id="presetBtn" data-popover="presetPop" aria-expanded="false" aria-haspopup="true">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.4 6.4h15.2M4.4 12h15.2M4.4 17.6h15.2"/><path d="M9 4.4v4M15 10v4M7 15.6v4"/></svg>
+      <span class="btn-text">Presets</span>
+    </button>
+
+    <button class="dock-btn" id="clearBtn" disabled>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.4 5.6c4.4 4.3 8.8 8.7 13.2 13.2M18.6 5.6C14.2 9.9 9.8 14.3 5.4 18.8"/></svg>
+      <span class="btn-text">Clear</span>
+    </button>
+  </div>
+
+  <div class="popover" id="timerPop" hidden>
+    <h3>Sleep timer</h3>
+    <div class="timer-opts">
+      <button data-minutes="15">15m</button>
+      <button data-minutes="30">30m</button>
+      <button data-minutes="60">1h</button>
+      <button data-minutes="0">∞</button>
+    </div>
+  </div>
+
+  <div class="popover" id="presetPop" hidden>
+    <h3>Presets</h3>
+    <div id="presetList"></div>
+    <form class="preset-form" id="presetForm">
+      <input id="presetName" type="text" placeholder="Name this mix…" maxlength="24" aria-label="Preset name">
+      <button type="submit" id="presetSave">Save</button>
+    </form>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

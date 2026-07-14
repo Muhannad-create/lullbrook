@@ -1,0 +1,13 @@
+{
+  "name": "Lullbrook — ambient sound library",
+  "short_name": "Lullbrook",
+  "description": "A quiet library of ambient sounds. Layer rain, fire, wind and more for sleep or focus.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1d1719",
+  "theme_color": "#1d1719",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

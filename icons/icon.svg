@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="dusk" cx="0.7" cy="0.15" r="1.1">
+      <stop offset="0" stop-color="#3a2a24"/>
+      <stop offset="0.55" stop-color="#241b1e"/>
+      <stop offset="1" stop-color="#191316"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#dusk)"/>
+  <circle cx="352" cy="150" r="34" fill="#e2a06c" opacity="0.9"/>
+  <g fill="none" stroke="#eec39b" stroke-width="17" stroke-linecap="round">
+    <path d="M96 262c36-34 70-34 106 0s70 34 106 0 70-34 108 0" opacity="0.95"/>
+    <path d="M96 330c36-26 70-26 106 0s70 26 106 0 70-26 108 0" opacity="0.6"/>
+    <path d="M96 392c36-18 70-18 106 0s70 18 106 0 70-18 108 0" opacity="0.32"/>
+  </g>
+</svg>
