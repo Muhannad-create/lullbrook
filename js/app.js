@@ -78,10 +78,10 @@ function syncBottomBar() {
   $('#playBtn').innerHTML = icon(state.playing && n ? 'ui-pause' : 'ui-play', 'icon');
   $('#playBtn').setAttribute('aria-label', state.playing && n ? 'Pause' : 'Play');
   const label = $('#npLabel');
-  if (!n) label.textContent = 'Quiet — tap a sound to begin';
+  if (!n) label.textContent = 'Quiet · tap a sound to begin';
   else label.textContent = `${n} layer${n > 1 ? 's' : ''}${state.playing ? '' : ' · paused'}`;
   $('#clearBtn').disabled = !n;
-  document.title = n && state.playing ? `Lullbrook · ${n} layer${n > 1 ? 's' : ''}` : 'Lullbrook — ambient sound library';
+  document.title = n && state.playing ? `Lullbrook · ${n} layer${n > 1 ? 's' : ''}` : 'Lullbrook · ambient sound library';
   drawViz();
 }
 

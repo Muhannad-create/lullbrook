@@ -481,7 +481,7 @@ input[type='range']::-moz-range-thumb {
 .about {
   max-width: 58ch;
   margin: 3rem 0 7rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(232, 196, 160, 0.1);
   color: rgba(232, 196, 160, 0.42);
   font-size: 0.82rem;
