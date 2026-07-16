@@ -3,6 +3,10 @@ import { icon } from './icons.js';
 import { engine } from './audio.js';
 
 const $ = sel => document.querySelector(sel);
+/* ---------------- analytics ---------------- */
+function track(name, params = {}) {
+  try { window.gtag?.('event', name, params); } catch {}
+}
 const store = {
   get(key, fallback) {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
@@ -98,7 +102,7 @@ function toggleSound(id) {
     state.mix.delete(id);
     engine.stop(id);
     cardEl(id)?.classList.remove('is-loading');
-  } else {
+  } else {track('sound_play', { sound_id: id, sound_name: sound.name, mix_size: state.mix.size + 1 });
     const vol = store.get('lullbrook.vol', {})[id] ?? 0.5;
     state.mix.set(id, vol);
     if (!state.playing) setPlaying(true);
@@ -158,6 +162,7 @@ function clearAll() {
 }
 
 function applyMix(mix) {
+  track('preset_apply', { mix_size: Object.keys(mix).length });
   clearAll();
   for (const [id, vol] of Object.entries(mix)) {
     if (!SOUND_MAP.has(id)) continue;
@@ -182,6 +187,7 @@ function setTimer(minutes) {
   engine.cancelFade();
   $('#timerBtn').classList.toggle('is-active', !!minutes);
   if (!minutes) { $('#timerLabel').textContent = ''; return; }
+    track('timer_set', { minutes });  
   state.timerEnd = Date.now() + minutes * 60000;
   const tick = () => {
     const left = Math.max(0, state.timerEnd - Date.now());
@@ -191,6 +197,7 @@ function setTimer(minutes) {
       state.fadeArmed = true;
       engine.fadeOutAndPause(left / 1000);
     }
+    
     if (left <= 0) {
       clearInterval(state.timerTick);
       state.timerTick = null; state.timerEnd = null; state.fadeArmed = false;
@@ -227,6 +234,7 @@ function savePreset(name) {
   if (!name || !state.mix.size) return;
   const mine = userPresets().filter(p => p.name !== name);
   mine.push({ name, mix: Object.fromEntries(state.mix) });
+    track('preset_save', { mix_size: state.mix.size }); 
   store.set('lullbrook.presets', mine);
   renderPresets();
 }
