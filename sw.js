@@ -1,6 +1,6 @@
 /* Lullbrook service worker — app shell precached, sounds cached on first play. */
 
-const SHELL_CACHE = 'lullbrook-shell-v3';
+const SHELL_CACHE = 'lullbrook-shell-v4';
 const SOUND_CACHE = 'lullbrook-sounds-v1';
 
 const SHELL = [
@@ -51,8 +51,29 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // shell: cache-first with network fallback (and background refresh of index)
+  // index.html: network-first, so a new deploy reaches people right away
+  if (e.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname === '/') {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          const copy = res.clone();
+          caches.open(SHELL_CACHE).then(c => c.put(e.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(e.request).then(hit => hit || caches.match('index.html')))
+    );
+    return;
+  }
+
+  // everything else: serve cached, refresh in the background
   e.respondWith(
-    caches.match(e.request).then(hit => hit || fetch(e.request))
+    caches.open(SHELL_CACHE).then(async cache => {
+      const hit = await cache.match(e.request);
+      const fresh = fetch(e.request).then(res => {
+        if (res.ok) cache.put(e.request, res.clone());
+        return res;
+      }).catch(() => hit);
+      return hit || fresh;
+    })
   );
 });
